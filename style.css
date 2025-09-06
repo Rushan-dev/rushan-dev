@@ -1218,7 +1218,7 @@ html {
 
 @media screen and (max-width: 767px) {
   .banner .content .model {
-    background-image: url(/images/model.png);
+    background-image: url(images/model.png);
     width: 100%;
     height: 40vh;
     position: absolute;
@@ -1697,3 +1697,4 @@ footer .copyright {
   }
   
 }
+
