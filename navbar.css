@@ -1,0 +1,259 @@
+/* Navbar base */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10000;
+  transition: background-color 0.4s ease, transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* States */
+nav.transparent {
+  background-color: transparent;
+}
+
+nav.black-bg {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+nav.hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+nav.visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Title + blinking cursor */
+.nav-title {
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.cursor {
+  padding-top: 15px;
+  display: inline-block;
+  width: 6px;
+  height: 40px;
+  background: rgb(255, 255, 255);
+  margin-left: 7px;
+  border-radius: 2px;
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Coding glitch flicker effect on scroll */
+nav.coding-flicker .nav-title {
+  animation: flicker 0.15s ease-in-out 3;
+}
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Nav links */
+.nav-links {
+  display: flex;
+  gap: 65px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: purple;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+@media (min-width: 769px) {
+  #toggle {
+    display: none !important;
+  }
+  .mobile-panel {
+    display: none !important;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  nav {
+    background-color: rgba(
+      0,
+      0,
+      0,
+      0.9
+    ) !important; /* always visible bg on mobile */
+  }
+
+  .nav-links {
+    display: none; /* hide desktop nav */
+  }
+
+  #toggle {
+    font-size: 24px;
+    color: white;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  #toggle-symbol {
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+  /* Mobile sliding menu panel */
+  .mobile-panel {
+    position: fixed;
+    top: 95px;
+    left: 0;
+    right: 0;
+    background: linear-gradient(90deg, #000, #2a0932);
+    max-height: 0;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    transition: max-height 0.4s cubic-bezier(0.2, 0.9, 0.2, 1);
+    z-index: 9999;
+  }
+  .mobile-panel.open {
+    max-height: 400px; /* enough height for menu items */
+  }
+
+  .mobile-panel ul {
+    list-style: none;
+    padding: 16px 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .mobile-panel li {
+    width: 100%;
+    text-align: center;
+    font-size: 1.15rem;
+    color: #eee;
+    opacity: 0;
+    transform: translateY(-12px);
+    user-select: none;
+    animation-fill-mode: forwards;
+  }
+
+  /* Animate menu items staggered when open */
+  .mobile-panel.open li {
+    animation: panelItemIn 0.35s ease forwards;
+  }
+  .mobile-panel.open li:nth-child(1) {
+    animation-delay: 0.05s;
+  }
+  .mobile-panel.open li:nth-child(2) {
+    animation-delay: 0.15s;
+  }
+  .mobile-panel.open li:nth-child(3) {
+    animation-delay: 0.25s;
+  }
+  .mobile-panel.open li:nth-child(4) {
+    animation-delay: 0.35s;
+  }
+  .mobile-panel.open li:nth-child(5) {
+    animation-delay: 0.45s;
+  }
+
+  .mobile-panel li a {
+    color: #eee;
+    text-decoration: none;
+  }
+  .mobile-panel li a:hover {
+    color: purple;
+  }
+
+  @keyframes panelItemIn {
+    from {
+      opacity: 0;
+      transform: translateY(-12px);
+      filter: blur(2px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+  }
+}
+
+/* General fix */
+body,
+html {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navbar container */
+#navbar {
+  width: 100%; /* avoid 100vw */
+  box-sizing: border-box;
+}
+
+/* Mobile panel */
+#mobilePanel {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0 15px; /* adjust as needed */
+  overflow-x: hidden;
+}
+
+/* Mobile menu items */
+#mobilePanel ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+#mobilePanel li {
+  padding: 10px 0;
+  white-space: nowrap; /* prevent breaking */
+}
