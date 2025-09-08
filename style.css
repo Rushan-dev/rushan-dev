@@ -428,7 +428,7 @@ body {
 }
 
 .pic2:hover {
-  filter: grayscale(40%);
+  filter: grayscale(0%);
   transition: 0.5s;
   opacity: 100%;
   max-width: 49%;
@@ -1696,5 +1696,6 @@ footer .copyright {
   }
   
 }
+
 
 
